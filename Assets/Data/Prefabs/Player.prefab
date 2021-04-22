@@ -30,6 +30,36 @@ Transform:
   m_Father: {fileID: 7696211787069327613}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4923046242582052779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540267316670934456}
+  m_Layer: 6
+  m_Name: WeaponSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &540267316670934456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4923046242582052779}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0793, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7696727920598113529}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7692870155683076227
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,6 +3449,7 @@ GameObject:
   - component: {fileID: 4236827307953895913}
   - component: {fileID: 289729735658908112}
   - component: {fileID: 6735992445847192911}
+  - component: {fileID: 1189768274}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -3567,6 +3598,7 @@ MonoBehaviour:
   IsReloading: 0
   IsJumping: 0
   IsRunning: 0
+  crosshairComponent: {fileID: 0}
 --- !u!114 &6735992445847192911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3582,6 +3614,20 @@ MonoBehaviour:
   WalkSpeed: 5
   RunSpeed: 7
   JumpForce: 5
+--- !u!114 &1189768274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693714352709987715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3814fffaafb0efe49b053de6fe267381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponToSpawn: {fileID: 5838398236512009928, guid: da051054625694b448ffc43b8e6a22ff, type: 3}
+  weaponSocket: {fileID: 540267316670934456}
 --- !u!1 &7693729058801361755
 GameObject:
   m_ObjectHideFlags: 0
@@ -4297,6 +4343,7 @@ Transform:
   - {fileID: 7696114702666302031}
   - {fileID: 7696339111282101449}
   - {fileID: 7696110969097938129}
+  - {fileID: 540267316670934456}
   m_Father: {fileID: 7697177004989801283}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

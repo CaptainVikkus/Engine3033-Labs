@@ -8,4 +8,7 @@ public class PlayerController : MonoBehaviour
     public bool IsReloading;
     public bool IsJumping;
     public bool IsRunning;
+
+    public CrosshairBehaviour Crosshair => crosshairComponent;
+    [SerializeField] CrosshairBehaviour crosshairComponent;
 }
