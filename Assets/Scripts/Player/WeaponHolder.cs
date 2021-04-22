@@ -11,6 +11,7 @@ public class WeaponHolder : MonoBehaviour
     private Transform gripIK;
     private WeaponComponent EquippedWeapon;
 
+    public PlayerController Player => player;
     PlayerController player;
     CrosshairBehaviour crosshair;
     Animator animator;
@@ -48,15 +49,14 @@ public class WeaponHolder : MonoBehaviour
     {
         //Spawn Chosen Weapon
         var spawnedWeapon = Instantiate(toEquip, weaponSocket);
-        if (spawnedWeapon)
-        {
-            EquippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
-            if (EquippedWeapon)
-            {
-                gripIK = EquippedWeapon.GripLocation;
-                animator.SetInteger(WeaponTypeHash, (int)EquippedWeapon.type);
-            }
-        }
+        if (!spawnedWeapon) return;
+        
+        EquippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
+        if (!EquippedWeapon) return;
+
+        gripIK = EquippedWeapon.GripLocation;
+        animator.SetInteger(WeaponTypeHash, (int)EquippedWeapon.Stats.WeaponType);
+        EquippedWeapon.Initialize(this, crosshair);
     }
 
     private void OnAnimatorIK(int layerIndex)
@@ -77,19 +77,46 @@ public class WeaponHolder : MonoBehaviour
     {
         if (player.IsReloading) return; //Don't Reload twice
 
-        animator.SetBool(IsReloadingHash, true);
-        player.IsReloading = true;
-        StartCoroutine(StopReloading());
+        StartReloading();
     }
 
-    IEnumerator StopReloading() //Should be obsoleted idealy by animreloadingscript
+    public void StartReloading()
     {
-        yield return new WaitForSeconds(2f);
+        if (EquippedWeapon.Stats.BulletsAvailable <= 0 && player.IsFiring)
+        {
+            EquippedWeapon.StopFiringWeapon();
+            player.IsFiring = false;
+            return;
+        }
+
+        player.IsReloading = true;
+        animator.SetBool(IsReloadingHash, true);
+        EquippedWeapon.StartReloading();
+
+        InvokeRepeating(nameof(StopReloading), 0, .1f);
+    }
+
+    private void StopReloading()
+    {
+        if (animator.GetBool(IsReloadingHash)) return;
+
         player.IsReloading = false;
+        EquippedWeapon.StopReloading();
+        CancelInvoke(nameof(StopReloading));
     }
     public void OnFire(InputValue value)
     {
-        animator.SetBool(IsFiringHash, value.isPressed);
-        player.IsFiring = value.isPressed;
+        if (value.isPressed)
+        {
+            animator.SetBool(IsFiringHash, true);
+            player.IsFiring = true;
+            EquippedWeapon.StartFiringWeapon();
+        }
+        else
+        {
+            animator.SetBool(IsFiringHash, false);
+            player.IsFiring = false;
+            EquippedWeapon.StopFiringWeapon();
+        }
     }
 }

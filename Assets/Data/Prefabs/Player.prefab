@@ -3450,6 +3450,7 @@ GameObject:
   - component: {fileID: 289729735658908112}
   - component: {fileID: 6735992445847192911}
   - component: {fileID: 1189768274}
+  - component: {fileID: 3818497624236019167}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -3628,6 +3629,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponToSpawn: {fileID: 5838398236512009928, guid: da051054625694b448ffc43b8e6a22ff, type: 3}
   weaponSocket: {fileID: 540267316670934456}
+--- !u!114 &3818497624236019167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693714352709987715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a455d31ec35020f48adeda930a16974a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationPower: 250
+  HorizontalDamping: 1
+  FollowTarget: {fileID: 8849290540565402209}
 --- !u!1 &7693729058801361755
 GameObject:
   m_ObjectHideFlags: 0
