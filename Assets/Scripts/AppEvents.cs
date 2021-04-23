@@ -12,3 +12,13 @@ public class AppEvents
         MouseCursorEnabled?.Invoke(enabled);
     }
 }
+
+public class PlayerEvents
+{
+    public delegate void OnWeaponEquippedEvent(WeaponComponent weapon);
+    public static event OnWeaponEquippedEvent OnWeaponEquipped;
+    public static void Invoke_OnWeaponEquipped(WeaponComponent weapon)
+    {
+        OnWeaponEquipped?.Invoke(weapon);
+    }
+}

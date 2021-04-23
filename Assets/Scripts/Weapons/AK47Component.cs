@@ -11,6 +11,11 @@ public class AK47Component : WeaponComponent
         {
             base.FireWeapon();
 
+            if (!FiringEffect)
+            {
+                FiringEffect = Instantiate(FiringAnimation, ParticleSpawnLocation).GetComponent<ParticleSystem>();
+            }
+
             Ray screenRay = MainCamera.ScreenPointToRay(new Vector3(CrosshairComponent.CurrentAimPos.x,
                 CrosshairComponent.CurrentAimPos.y, 0));
 

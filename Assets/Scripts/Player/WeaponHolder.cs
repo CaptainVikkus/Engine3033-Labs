@@ -57,6 +57,7 @@ public class WeaponHolder : MonoBehaviour
         gripIK = EquippedWeapon.GripLocation;
         animator.SetInteger(WeaponTypeHash, (int)EquippedWeapon.Stats.WeaponType);
         EquippedWeapon.Initialize(this, crosshair);
+        PlayerEvents.Invoke_OnWeaponEquipped(EquippedWeapon);
     }
 
     private void OnAnimatorIK(int layerIndex)
@@ -83,7 +84,7 @@ public class WeaponHolder : MonoBehaviour
     public void StartReloading()
     {
         if (EquippedWeapon.Stats.BulletsAvailable <= 0 && player.IsFiring)
-        {
+        { //Nothing to reload
             EquippedWeapon.StopFiringWeapon();
             player.IsFiring = false;
             return;

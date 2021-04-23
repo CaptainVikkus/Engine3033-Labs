@@ -33,6 +33,8 @@ public class WeaponComponent : MonoBehaviour
 
     public Transform GripLocation => GripIKLocation;
     [SerializeField] private Transform GripIKLocation;
+    [SerializeField] protected Transform ParticleSpawnLocation;
+    [SerializeField] protected GameObject FiringAnimation;
 
     public WeaponStats Stats => weaponStats;
     [SerializeField] private WeaponStats weaponStats;
@@ -40,6 +42,7 @@ public class WeaponComponent : MonoBehaviour
     protected WeaponHolder WeaponHolder;
     protected CrosshairBehaviour CrosshairComponent;
     protected Camera MainCamera;
+    protected ParticleSystem FiringEffect;
 
     public bool Firing { get; private set; }
     public bool Reloading { get; private set; }
@@ -68,7 +71,7 @@ public class WeaponComponent : MonoBehaviour
     public virtual void StopFiringWeapon()
     {
         Firing = false;
-        //if (FiringEffect) Destroy(FiringEffect.gameObject);
+        if (FiringEffect) Destroy(FiringEffect.gameObject);
         CancelInvoke(nameof(FireWeapon));
     }
 
@@ -79,6 +82,7 @@ public class WeaponComponent : MonoBehaviour
     public virtual void StartReloading()
     {
         Reloading = true;
+        if (FiringEffect) Destroy(FiringEffect.gameObject);
     }
 
     public virtual void StopReloading()
@@ -89,13 +93,12 @@ public class WeaponComponent : MonoBehaviour
 
     public virtual void ReloadWeapon()
     {
-        //if (FiringEffect) Destroy(FiringEffect.gameObject);
-
-        int bulletsToReload = weaponStats.ClipSize - weaponStats.BulletsAvailable;
-        if (bulletsToReload < 0)
+        int bulletsLeft = weaponStats.ClipSize - weaponStats.BulletsAvailable;
+        int bulletsToReload = weaponStats.ClipSize - weaponStats.BulletsInClip;
+        if (bulletsLeft < 0)
         {
             weaponStats.BulletsInClip = weaponStats.ClipSize;
-            weaponStats.BulletsAvailable -= weaponStats.ClipSize;
+            weaponStats.BulletsAvailable -= bulletsToReload;
         }
         else
         {
